@@ -151,7 +151,7 @@ namespace MoonByte.IO.Server
 
         #region Expire
 
-        private void CheckExpireAuto(object source, ElapsedEventArgs e) { if (!RunExpireCheck()) { StopServer(); } }
+        private void CheckExpireAuto(object source, ElapsedEventArgs e) { if (!RunExpireCheck()) { if (IsOnline()) { StopServer(); } } }
 
         DateTime expireTime;
 
