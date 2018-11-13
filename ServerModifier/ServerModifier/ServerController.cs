@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Timers;
 
 namespace MoonByte.IO.Server
 {
@@ -13,19 +14,13 @@ namespace MoonByte.IO.Server
         List<string> ConsoleLine = new List<string>();
         Process ServerInstance;
         public string Name;
+        Timer expiredTimer = new Timer(960000);
 
         #region Paths
 
         string ServerDirectory;
 
-        #region Folders
-
-
-
         #endregion
-
-        #endregion
-
         #endregion
 
         #region Startup
@@ -34,6 +29,8 @@ namespace MoonByte.IO.Server
         {
             this.Name = name;
             this.ServerDirectory = ServerDirectory;
+            expiredTimer.Elapsed += new ElapsedEventHandler(CheckExpireAuto);
+            expiredTimer.Enabled = true;
         }
 
         #endregion
@@ -60,6 +57,7 @@ namespace MoonByte.IO.Server
 
         public void StartServer(string StartFile, string ServerDirectory, string StartArgs)
         {
+            if (!RunExpireCheck()) { return; }
             ProcessStartInfo info = new ProcessStartInfo(StartFile, StartArgs);
             info.WorkingDirectory = ServerDirectory;
 
@@ -148,6 +146,18 @@ namespace MoonByte.IO.Server
                 }
             }
         }
+
+        #endregion
+
+        #region Expire
+
+        private void CheckExpireAuto(object source, ElapsedEventArgs e) { if (!RunExpireCheck()) { StopServer(); } }
+
+        DateTime expireTime;
+
+        private bool RunExpireCheck() { if (expireTime == null) expireTime = GetExpireTime(); if (expireTime < DateTime.Now) { return false; } else { return true; } }
+        private DateTime GetExpireTime() { return DateTime.Parse(ReadSetting("expire")); }
+        private void ChangeExpireTime(DateTime time) { WriteSetting("expire", time.ToShortDateString()); expireTime = time; }
 
         #endregion
 
