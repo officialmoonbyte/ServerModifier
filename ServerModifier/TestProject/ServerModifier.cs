@@ -27,5 +27,6 @@ namespace MoonByte.PluginWrappers
         public string GetImageURL(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "GETIMAGEURL", Username, Server }); }
         public string WriteSetting(string Username, string Server, string SettingName, string SettingValue)  { return client.ClientSender.SendCommand(Command, new string[] { "WRITESETTING", Username, Server, SettingName, SettingValue }); }
         public string ReadSetting(string Username, string Server, string SettingName) { return client.ClientSender.SendCommand(Command, new string[] { "READSETTING", Username, Server, SettingName }); }
+        public string CheckSetting(string Username, string Server, string SettingName) { return client.ClientSender.SendCommand(Command, new string[] { "CHECKSETTING", Username, Server, SettingName }); }
     }
 }

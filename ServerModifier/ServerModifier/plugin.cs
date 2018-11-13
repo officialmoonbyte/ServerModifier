@@ -79,7 +79,7 @@ namespace MoonByte.IO.Server
                 bool s = false; foreach (string file in UserServers)
                 {
                     if (file == ServerUI) { workload.SendMessage(context, UserDirectory + "\\" + UserProfile + "\\" + file); s = true; break; }
-                } if (s == false) { workload.SendMessage(context, "false"); }
+                } if (s == false) { workload.SendMessage(context, "invalid"); }
             }
             if(Command == "CHANGEENDDATE")
             {
@@ -98,7 +98,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "GETCONSOLEINFO")
@@ -111,7 +111,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if(Command == "SENDCONSOLECOMMAND")
@@ -126,7 +126,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "STOPSERVER")
@@ -140,7 +140,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "CREATESERVER")
@@ -149,7 +149,7 @@ namespace MoonByte.IO.Server
 
                 if (Directory.Exists(UserDirectory + "\\" + ServerUI))
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
                 else
                 {
@@ -175,7 +175,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "ISONLINE")
@@ -190,7 +190,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if(Command == "GETUSERSERVERS")
@@ -214,7 +214,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "CHANGEIMAGEURL")
@@ -229,7 +229,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "GETIMAGEURL")
@@ -242,7 +242,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "WRITESETTING")
@@ -258,7 +258,7 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
                 }
             }
             if (Command == "READSETTING")
@@ -273,7 +273,26 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
-                    workload.SendMessage(context, "false");
+                    workload.SendMessage(context, "invalid");
+                }
+            }
+            if (Command == "CHECKSETTING")
+            {
+                string SettingName = Args[4];
+
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    if (controller.CheckSetting(SettingName))
+                    {
+                        workload.SendMessage(context, "true");
+                    }
+                    else { workload.SendMessage(context, "false"); }
+                }
+                else
+                {
+                    workload.SendMessage(context, "invalid");
                 }
             }
         }

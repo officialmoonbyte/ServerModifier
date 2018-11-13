@@ -71,6 +71,13 @@ namespace MoonByte.IO.Server
             else { return "file does not exists!"; }
         }
 
+        public bool CheckSetting(string SettingName)
+        {
+            string FilePath = ServerDirectory + @"\" + SettingName + ".set";
+            if (File.Exists(FilePath)) { return true; }
+            else { return false; }
+        }
+
         #endregion
 
         #region Starting Process
