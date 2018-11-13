@@ -13,7 +13,7 @@ namespace TestProject
         string ServerArgs = "-Xmx1024M -Xms1024M -jar server.jar nogui";
         string ConsoleCommand = "say Hello!";
 
-        ServerModifier mod = new ServerModifier("localhost", 7777);
+        ServerModifier mod = new ServerModifier("192.168.0.16", 4543);
 
         public Form1()
         {

@@ -14,16 +14,54 @@ namespace MoonByte.IO.Server
         Process ServerInstance;
         public string Name;
 
+        #region Paths
+
+        string ServerDirectory;
+
+        #region Folders
+
+
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Startup
+
+        public ServerController(string name, string ServerDirectory)
+        {
+            this.Name = name;
+            this.ServerDirectory = ServerDirectory;
+        }
+
+        #endregion
+
+        #region Settings
+
+        private void WriteSetting(string SettingName, string SettingValue)
+        {
+            string FilePath = ServerDirectory + @"\" + SettingName + ".set";
+            if (!File.Exists(FilePath)) File.Create(FilePath).Close();
+            File.WriteAllText(FilePath, SettingValue);
+        }
+
+        private string ReadSetting(string SettingName)
+        {
+            string FilePath = ServerDirectory + @"\" + SettingName + ".set";
+            if (File.Exists(FilePath)) { return File.ReadAllText(FilePath); }
+            else { return "file does not exists!"; }
+        }
+
         #endregion
 
         #region Starting Process
 
-        public ServerController(string name) { this.Name = name; }
         public void StartServer(string StartFile, string ServerDirectory, string StartArgs)
         {
             ProcessStartInfo info = new ProcessStartInfo(StartFile, StartArgs);
             info.WorkingDirectory = ServerDirectory;
-            Console.WriteLine("Server Directory : " + ServerDirectory);
 
             info.UseShellExecute = false;
             info.RedirectStandardOutput = true;

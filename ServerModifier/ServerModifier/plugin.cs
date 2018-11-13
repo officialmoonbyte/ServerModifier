@@ -55,7 +55,11 @@ namespace MoonByte.IO.Server
                 foreach (DirectoryInfo server in servers)
                 {
                     serverControlObject serverControl = new serverControlObject();
-                    serverControl.Username = user; serverControl.serverController = new ServerController(server.Name);
+                    serverControl.Username = user;
+
+                    string serverdirectory = GetServerDirectory(user, server.Name);
+
+                    serverControl.serverController = new ServerController(server.Name, serverdirectory);
                     Console.WriteLine("Initialized " + server.Name + " controller for " + user);
                 }
             }
@@ -76,6 +80,10 @@ namespace MoonByte.IO.Server
                 {
                     if (file == ServerUI) { workload.SendMessage(context, UserDirectory + "\\" + UserProfile + "\\" + file); s = true; break; }
                 } if (s == false) { workload.SendMessage(context, "false"); }
+            }
+            if(Command == "CHANGEENDDATE")
+            {
+
             }
             if (Command == "STARTSERVER")
             {
@@ -145,9 +153,11 @@ namespace MoonByte.IO.Server
                 }
                 else
                 {
+                    string serverdirectory = GetServerDirectory(UserProfile, ServerUI);
+
                     Directory.CreateDirectory(UserDirectory + "\\" + ServerUI);
                     serverControlObject controllerObject = new serverControlObject();
-                    ServerController controller = new ServerController(ServerUI);
+                    ServerController controller = new ServerController(ServerUI, serverdirectory);
                     controllerObject.serverController = controller;
                     controllerObject.Username = UserProfile;
                     controllers.Add(controllerObject);
@@ -182,6 +192,10 @@ namespace MoonByte.IO.Server
                 {
                     workload.SendMessage(context, "false");
                 }
+            }
+            if(Command == "GETUSERSERVERS")
+            {
+                workload.SendMessage(context, string.Join("%20%", GetUserServers(UserProfile)));
             }
         }
 
