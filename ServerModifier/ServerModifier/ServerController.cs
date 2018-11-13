@@ -35,16 +35,36 @@ namespace MoonByte.IO.Server
 
         #endregion
 
-        #region Settings
+        #region Image URL
 
-        private void WriteSetting(string SettingName, string SettingValue)
+        public bool ChangeImageURL(string URL)
         {
-            string FilePath = ServerDirectory + @"\" + SettingName + ".set";
-            if (!File.Exists(FilePath)) File.Create(FilePath).Close();
-            File.WriteAllText(FilePath, SettingValue);
+            try
+            {
+                WriteSetting("FaviconURL", URL); return true;
+            }
+            catch { return false; }
         }
 
-        private string ReadSetting(string SettingName)
+        public string GetImageURL() { return ReadSetting("FaviconURL"); }
+
+        #endregion
+
+        #region Settings
+
+        public bool WriteSetting(string SettingName, string SettingValue)
+        {
+            try
+            {
+                string FilePath = ServerDirectory + @"\" + SettingName + ".set";
+                if (!File.Exists(FilePath)) File.Create(FilePath).Close();
+                File.WriteAllText(FilePath, SettingValue);
+                return true;
+            }
+            catch { return false; }
+        }
+
+        public string ReadSetting(string SettingName)
         {
             string FilePath = ServerDirectory + @"\" + SettingName + ".set";
             if (File.Exists(FilePath)) { return File.ReadAllText(FilePath); }

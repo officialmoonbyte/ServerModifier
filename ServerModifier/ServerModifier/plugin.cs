@@ -217,6 +217,65 @@ namespace MoonByte.IO.Server
                     workload.SendMessage(context, "false");
                 }
             }
+            if (Command == "CHANGEIMAGEURL")
+            {
+                string ImageURL = Args[4];
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    if (controller.ChangeImageURL(ImageURL)) { workload.SendMessage(context, "true"); }
+                    else { workload.SendMessage(context, "falsec"); }
+                }
+                else
+                {
+                    workload.SendMessage(context, "false");
+                }
+            }
+            if (Command == "GETIMAGEURL")
+            {
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    workload.SendMessage(context, controller.GetImageURL());
+                }
+                else
+                {
+                    workload.SendMessage(context, "false");
+                }
+            }
+            if (Command == "WRITESETTING")
+            {
+                string SettingName = Args[4];
+                string SettingValue = Args[5];
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    if (controller.WriteSetting(SettingName, SettingValue)) { workload.SendMessage(context, "true"); }
+                    else { workload.SendMessage(context, "falsec"); }
+                }
+                else
+                {
+                    workload.SendMessage(context, "false");
+                }
+            }
+            if (Command == "READSETTING")
+            {
+                string SettingName = Args[4];
+
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    workload.SendMessage(context, controller.ReadSetting(SettingName));
+                }
+                else
+                {
+                    workload.SendMessage(context, "false");
+                }
+            }
         }
 
         public void Unload()
