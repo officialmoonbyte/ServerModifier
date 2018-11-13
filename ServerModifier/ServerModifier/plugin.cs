@@ -197,6 +197,26 @@ namespace MoonByte.IO.Server
             {
                 workload.SendMessage(context, string.Join("%20%", GetUserServers(UserProfile)));
             }
+            if (Command == "CHANGEEXPIREDATE")
+            {
+                string dateString = Args[4];
+                DateTime incomingDate = DateTime.Today;
+                try { incomingDate = DateTime.Parse(dateString); }
+                catch { workload.SendMessage(context, "Failed to parse DateString"); }
+
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+                
+                if(controller != null)
+                {
+                    if (controller.ChangeExpireTime(incomingDate) == true)
+                    { workload.SendMessage(context, "true");
+                    } else { workload.SendMessage(context, "falsec"); }
+                }
+                else
+                {
+                    workload.SendMessage(context, "false");
+                }
+            }
         }
 
         public void Unload()

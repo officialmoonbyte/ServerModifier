@@ -22,5 +22,6 @@ namespace MoonByte.PluginWrappers
         public string DeleteServer(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "DELETESERVER", Username, Server }); }
         public string IsOnline(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "ISONLINE", Username, Server }); }
         public List<string> GetConsoleInfo(string Username, string Server) { string s = client.ClientSender.SendCommand(Command, new string[] { "GETCONSOLEINFO", Username, Server }); return s.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList(); }
+        public string ChangeExpirationDate(string Username, string Server, DateTime date) { return client.ClientSender.SendCommand(Command, new string[] { "CHANGEEXPIREDATE", Username, Server, date.ToShortDateString() }); }
     }
 }
