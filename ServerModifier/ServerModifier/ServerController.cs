@@ -115,7 +115,7 @@ namespace MoonByte.IO.Server
         #region Stop Process
 
         public void StopServer()
-        { try { ServerInstance.Kill(); } catch { } }
+        { if (this.IsOnline()) { try { ServerInstance.Kill(); } catch { } } }
 
         #endregion
 
