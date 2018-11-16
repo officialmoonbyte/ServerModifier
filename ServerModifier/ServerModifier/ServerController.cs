@@ -183,7 +183,7 @@ namespace MoonByte.IO.Server
         DateTime expireTime;
 
         private bool RunExpireCheck() { if (expireTime == null) expireTime = GetExpireTime(); if (expireTime < DateTime.Now) { return false; } else { return true; } }
-        private DateTime GetExpireTime() { return DateTime.Parse(ReadSetting("expire")); }
+        public DateTime GetExpireTime() { return DateTime.Parse(ReadSetting("expire")); }
         public bool ChangeExpireTime(DateTime time)
         {
             try

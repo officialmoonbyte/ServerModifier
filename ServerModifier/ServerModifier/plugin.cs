@@ -217,6 +217,19 @@ namespace MoonByte.IO.Server
                     workload.SendMessage(context, "invalid");
                 }
             }
+            if (Command == "GETEXPIREDATE")
+            {
+                ServerController controller = GetServerController(UserProfile, ServerUI);
+
+                if (controller != null)
+                {
+                    workload.SendMessage(context, controller.GetExpireTime().ToString());
+                }
+                else
+                {
+                    workload.SendMessage(context, "invalid");
+                }
+            }
             if (Command == "CHANGEIMAGEURL")
             {
                 string ImageURL = Args[4];

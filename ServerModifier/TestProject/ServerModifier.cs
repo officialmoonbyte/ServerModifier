@@ -23,6 +23,7 @@ namespace MoonByte.PluginWrappers
         public string IsOnline(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "ISONLINE", Username, Server }); }
         public List<string> GetConsoleInfo(string Username, string Server) { string s = client.ClientSender.SendCommand(Command, new string[] { "GETCONSOLEINFO", Username, Server }); return s.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList(); }
         public string ChangeExpirationDate(string Username, string Server, DateTime date) { return client.ClientSender.SendCommand(Command, new string[] { "CHANGEEXPIREDATE", Username, Server, date.ToShortDateString() }); }
+        public string GetExpireDate(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "GETEXPIREDATE", Username, Server }); }
         public string ChangeImageURL(string Username, string Server, string ImageURL) { return client.ClientSender.SendCommand(Command, new string[] { "CHANGEIMAGEURL", Username, Server, ImageURL }); }
         public string GetImageURL(string Username, string Server) { return client.ClientSender.SendCommand(Command, new string[] { "GETIMAGEURL", Username, Server }); }
         public string WriteSetting(string Username, string Server, string SettingName, string SettingValue)  { return client.ClientSender.SendCommand(Command, new string[] { "WRITESETTING", Username, Server, SettingName, SettingValue }); }
