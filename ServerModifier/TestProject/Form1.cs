@@ -7,8 +7,8 @@ namespace TestProject
     public partial class Form1 : Form
     {
 
-        string Username = "Test User";
-        string Server = "Test Server";
+        string Username = "test";
+        string Server = "Testing!!";
         string StartFile = "java.exe";
         string ServerArgs = "-Xmx1024M -Xms1024M -jar server.jar nogui";
         string ConsoleCommand = "say Hello!";
@@ -73,6 +73,21 @@ namespace TestProject
         private void button10_Click(object sender, EventArgs e)
         {
             Console.WriteLine(mod.DeleteServer(Username, Server));
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(mod.WriteSetting(Username, Server, "TE", "est"));
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(mod.ReadSetting(Username, Server, "TE"));
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(mod.CheckSetting(Username, Server, "TE"));
         }
     }
 }

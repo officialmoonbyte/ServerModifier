@@ -67,6 +67,7 @@ namespace MoonByte.IO.Server
         public string ReadSetting(string SettingName)
         {
             string FilePath = ServerDirectory + @"\" + SettingName + ".set";
+            Console.WriteLine("FILEPATH : " + FilePath);
             if (File.Exists(FilePath)) { return File.ReadAllText(FilePath); }
             else { return "file does not exists!"; }
         }
